@@ -1,0 +1,61 @@
+/* Name: Shubham Sarang
+    Roll no: 1345
+    Unit 1: Sorting
+    Program: Bubble sort*/ 
+    
+    #include<iostream>
+    
+    using namespace std;
+    
+    int main()
+    {
+    	int arr[20],n,i,temp,j;
+    	
+    	cout<<"**Bubble sorting**"<<endl<< endl;
+    	
+    	cout<<"Enter size of array=";
+    	cin>>n;
+    	
+    	cout<<endl;
+    	
+    	cout<<"Enter number of elements=";
+    	
+    	for(i=0;i<n;i++)
+    	{
+    		cin>>arr[i];
+		}
+		
+		cout<<endl;
+		
+		cout<<"Array before sorting=";
+		
+    	for(i=0;i<n;i++)
+    	{
+    		cout<<arr[i]<<"\t";
+		}
+		
+		//Swapping/sorting
+		
+    	for(i=0;i<n-1;i++)
+    	{
+    		for(j=i+1;j<n;j++)
+    		{
+    			if(arr[i]>arr[j])
+    			{
+    				temp=arr[j];
+    			    arr[j]=arr[i];
+    			    arr[i]=temp;
+				}
+			}
+		}
+    	
+    	cout<<endl;
+    	
+		cout<<"Array after sorting=";
+    	
+		for(i=0;i<n;i++)
+    	{
+    		cout<<arr[i]<<"\t";
+		}
+		
+	}//end main
