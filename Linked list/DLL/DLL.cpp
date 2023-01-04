@@ -52,7 +52,128 @@ void DList :: Insert(int x)
 
 void DList :: Display()
 {
+	if(head == NULL)
+	{
+		cout<<"Empty list";
+		return;
+	}
 	
+	DNode *tmp = head; 
+	cout<<"Forward Direction: ";
+	while( tmp!= NULL)
+	{
+		cout<<tmp->data<<"<->";
+		tmp = tmp->right;
+	}
+	cout<<"End of list"<<endl;
+	tmp = tail;
+	cout<<"Reverse Direction: ";
+	while( tmp!= NULL)
+	{
+		cout<<tmp->data<<"<->";
+		tmp = tmp->left;
+	}
+	cout<<"Start of list"<<endl;
+}
+
+void DList::Length()
+{
+	int count=0;
+	if(head == NULL)
+	{
+		cout<<"Empty list";
+		return;
+	}
+	
+	DNode *tmp = head;
+	while( tmp!= NULL)
+	{
+		count++;
+		tmp = tmp->right;
+	}
+	cout<<"Length of list: "<<count;
+}
+
+void DList::Search(int x)
+{
+	if(head == NULL)
+	{
+		cout<<"Empty list";
+		return;
+	}
+	int flag = 0;
+	DNode *tmp = head;
+	while(tmp!=NULL)
+	{
+		if(tmp->data==x)
+		{
+			flag=1;
+			break;
+		}
+		tmp=tmp->right;
+	}
+	
+	if(flag==1)
+	{
+		cout<<"Element "<<x<<" found";
+	}
+	else
+	{
+		cout<<"Element "<<x<<" not found";
+	}
+}
+
+void DList::Remove(int x)
+{
+	if(head == NULL)
+	{
+		cout<<"Empty list";
+		return;
+	}
+	DNode *tmp = head;
+	DNode *prev = NULL;
+	int flag = 0;
+	while(tmp!=NULL)
+	{
+		if(tmp->data == x)
+		{
+			flag = 1;
+			break;	
+		}
+		prev = tmp;
+		tmp = tmp->right;
+	}
+	//step 3: unsuccessfull search return control
+	if(flag==0)
+	{
+		cout<<"Element "<<x<<" not found ";
+		return;
+	}
+	
+	//Step 4: Successful search, a single node deletion
+	if(head == tail)
+	{
+		head = NULL;
+		tail = NULL;
+	}
+	else if(tmp==head) //step 4 b: head node deletion
+	{
+		head = tmp->right;
+		head->left = NULL;	
+	}
+	else if(tmp == tail) //step4 c: tail node deletion
+	{
+		tail = prev;
+		tail->right = NULL; 
+	}
+	else //Step 4 d: any node in the middle
+	{
+		prev->right = tmp->right;
+		(tmp->right)->left = prev;
+	}
+    //Step 5: delete the node containing x
+    delete tmp;
+    cout<<"Element deleted ";
 }
 //Functions
 
@@ -60,7 +181,7 @@ void DList :: Display()
 
 int main()
 {
-	int ch, x, num;
+	int ch, x, y,z, num;
 	DList d;
 	while(1)
 	{	
@@ -86,18 +207,25 @@ int main()
 					break;
 			case 2:
 					cout<<"The list is: ";
+					d.Display();
 					getch();
 					break;
 			case 3:
 					cout<<"Length of the list is: ";
+					d.Length();
 					getch();
 					break;
 			case 4:
 					cout<<"Enter the element to be searched: ";
+					cin>>y;
+					d.Search(y);
 					getch();
 					break;
 			case 5:
 					cout<<"Enter the element to be removed: ";
+					cin>>z;
+					d.Remove(z);
+					d.Display();
 					getch();
 					break;
 			case 6:
