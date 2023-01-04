@@ -31,7 +31,8 @@ class SList
 		void Display();
 		void Length();
 		void Search(int x);
-		void Remove(int x);
+		void Remove(int x); 
+		void Reverse();
 };
 // Functions
 void SList :: Insert(int x)
@@ -158,6 +159,28 @@ void SList :: Remove(int x)
     delete tmp;
     cout<<"Element deleted ";
 }
+
+void SList::Reverse()
+{
+	Node *tmp = head;
+	Node *revHead = NULL;
+	
+	while(tmp!=NULL)
+	{
+		//Make new node
+		Node *r = new Node();
+		r->data = tmp->data;
+		r->next = revHead; //for the first node revhead is already null
+		
+		//set Revhead
+		revHead = r;
+		
+		//advance tmp
+		tmp = tmp->next;
+		
+	}//end while
+	head = revHead;
+}
 //Menu 
 
 int main()
@@ -173,7 +196,8 @@ int main()
 		cout<<"3. Length of SLL\n";
 		cout<<"4. Search for the node in SLL\n";
 		cout<<"5. Remove a node\n";
-		cout<<"6. Exit\n\n";	
+		cout<<"6. Reverse the list \n";
+		cout<<"7. Exit\n\n";	
 		
 		cout<<"Enter your choice: ";
 		cin>>ch;
@@ -208,6 +232,12 @@ int main()
 					getch();
 					break;
 			case 6:
+					cout<<"Reverse: ";
+					s.Reverse();
+					s.Display();
+					getch();
+					break;
+			case 7:
 					exit(1);
 			default:
 					cout<<"Incorrect option";
