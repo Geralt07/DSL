@@ -34,7 +34,7 @@ int main()
 			max = arr[i];	
 		}
 	}
-	
+	//Length of number
 	while(max>0)
 	{
 		max=max/10;
