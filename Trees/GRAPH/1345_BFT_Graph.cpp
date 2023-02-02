@@ -2,20 +2,67 @@
 	Name: Shubham Sarang
 	Roll no: 1345
 	Unit: Graph
-	Program: Adjacency matrix
+	Program: BFT
 */
 
 #include<iostream>
 #include<conio.h>
 #define MAX 20
-
 using namespace std;
+
+// Queue template
+class Queue
+{
+	int a[MAX];
+	int front, rear;
+	public:
+		Queue()
+		{
+			front = rear = -1;	
+		}	
+		void Enqueue(int x);
+		int Dequeue();
+		bool isEmpty();
+};
+
+void Queue::Enqueue(int x)
+{
+	if(front == -1)
+	{
+		front++;
+	}
+	rear++;
+	a[rear] = x;
+}
+
+int Queue::Dequeue()
+{
+	int x = a[front];
+	if(front == rear)
+	{
+		front = -1;
+		rear = -1;
+	}
+	else
+	{
+		front++;
+	}
+	return x;
+}
+
+bool Queue::isEmpty()
+{
+	return((front == -1)?true:false);
+}
+//Queue end
+
 class Graph
 {
 	int adj[MAX][MAX];
 	int n;
 	int e;
-	public:
+	int visited[MAX];
+		public:
 		Graph()
 		{
 			int i,j;
@@ -31,6 +78,7 @@ class Graph
 		}	
 		void CreateGraph();
 		void Display();
+		void DFT(int x);
 };
 
 void Graph::CreateGraph()
@@ -73,10 +121,36 @@ void Graph::Display()
 	}
 }
 
+void Graph::DFT(int x)
+{
+	int i;
+	Queue s;
+	//initialize visited flag
+	for(i=0;i<n;i++)
+	{
+		visited[i] = 0;
+	}
+	s.Enqueue(x);
+	visited[x] = 1;
+	
+	while(!s.isEmpty())
+	{
+		x = s.Dequeue();
+		cout<<x<<" ";
+		for(i=0; i<n; i++)
+		{
+			if(adj[x][i] == 1 && visited[i] == 0) //check if there is an edge
+			{
+				s.Enqueue(i);
+				visited[i] = 1;
+			}
+		}//end for
+	}//end while
+}
 
 int main()
 {
-	int ch;
+	int ch, num;
 	Graph g;
 	while(1)
 	{
@@ -85,7 +159,8 @@ int main()
 		
 		cout<<"1. Create graph \n";
 		cout<<"2. Display \n";
-		cout<<"3. Exit \n";
+		cout<<"3. Breadth First Traversal \n";
+		cout<<"4. Exit \n";
 		
 		cout<<"Enter your choice: ";
 		cin>>ch;
@@ -103,6 +178,12 @@ int main()
 				getch();
 				break;
 			case 3:
+				cout<<"Enter node: ";
+				cin>>num;
+				g.DFT(num);
+				getch();
+				break;
+			case 4:
 				exit(1);
 				break;
 			default:

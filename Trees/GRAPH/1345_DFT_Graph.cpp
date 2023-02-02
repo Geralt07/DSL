@@ -2,20 +2,60 @@
 	Name: Shubham Sarang
 	Roll no: 1345
 	Unit: Graph
-	Program: Adjacency matrix
+	Program: DFT
 */
 
 #include<iostream>
 #include<conio.h>
 #define MAX 20
-
 using namespace std;
+
+// Stack template
+class Stack
+{
+	int a[MAX];
+	int tos;
+	public:
+		Stack()
+		{
+			tos = -1;	
+		}	
+		void Push(int x);
+		int Pop();
+		bool isEmpty();
+};
+
+void Stack::Push(int x)
+{
+	tos++;
+	if(tos > MAX-1)
+	{
+		cout<<"Stack overflow";
+		return;
+	}
+	a[tos] = x;
+}
+
+int Stack::Pop()
+{
+	int x = a[tos];
+	tos--;
+	return x;
+}
+
+bool Stack::isEmpty()
+{
+	return((tos == -1)?true:false);
+}
+//Stack end
+
 class Graph
 {
 	int adj[MAX][MAX];
 	int n;
 	int e;
-	public:
+	int visited[MAX];
+		public:
 		Graph()
 		{
 			int i,j;
@@ -31,6 +71,7 @@ class Graph
 		}	
 		void CreateGraph();
 		void Display();
+		void DFT(int x);
 };
 
 void Graph::CreateGraph()
@@ -73,10 +114,36 @@ void Graph::Display()
 	}
 }
 
+void Graph::DFT(int x)
+{
+	int i;
+	Stack s;
+	//initialize visited flag
+	for(i=0;i<n;i++)
+	{
+		visited[i] = 0;
+	}
+	s.Push(x);
+	visited[x] = 1;
+	
+	while(!s.isEmpty())
+	{
+		x = s.Pop();
+		cout<<x<<" ";
+		for(i=0; i<n; i++)
+		{
+			if(adj[x][i] == 1 && visited[i] == 0) //check if there is an edge
+			{
+				s.Push(i);
+				visited[i] = 1;
+			}
+		}//end for
+	}//end while
+}
 
 int main()
 {
-	int ch;
+	int ch, num;
 	Graph g;
 	while(1)
 	{
@@ -85,7 +152,8 @@ int main()
 		
 		cout<<"1. Create graph \n";
 		cout<<"2. Display \n";
-		cout<<"3. Exit \n";
+		cout<<"3. Depth First Traversal \n";
+		cout<<"4. Exit \n";
 		
 		cout<<"Enter your choice: ";
 		cin>>ch;
@@ -103,6 +171,12 @@ int main()
 				getch();
 				break;
 			case 3:
+				cout<<"Enter node: ";
+				cin>>num;
+				g.DFT(num);
+				getch();
+				break;
+			case 4:
 				exit(1);
 				break;
 			default:
