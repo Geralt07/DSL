@@ -18,7 +18,7 @@ int main()
 	cout<<"Enter a postfix expression: ";
 	gets(postfix);
 	
-	while(postfix != '\0')
+	while(postfix[i] != '\0')
 	{
 		tmp = postfix[i];
 		
@@ -58,5 +58,6 @@ int main()
 		i++;
 
 	}//end of while
+	result = s.Pop();
 	cout<<"Result = "<<result;
 }
