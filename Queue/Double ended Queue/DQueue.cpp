@@ -43,10 +43,8 @@ public:
 // 3. Functions
 int DEQueue ::Empty()
 {
-    int sig = (front == NULL && rear == NULL) 
-                ? 1 
-                : 0;
-    return sig;
+    int res = (front == NULL && rear == NULL)? 1 : 0;
+    return res;
 }
 void DEQueue ::EnqueueFront(int x)
 {

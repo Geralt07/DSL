@@ -72,6 +72,11 @@ void PQueue::Enqueue(int x, int p)
 	{
 		prev->next = t;
 	}
+	else
+	{
+		prev->next = t;
+		t->next = tmp;
+	}
 }
 
 void PQueue::Dqueue()
